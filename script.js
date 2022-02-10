@@ -1,21 +1,12 @@
 
-// GOOGLE MAP API "https://maps.googleapis.com/maps/api/geocode/json?address=`${address}`&key=AIzaSyCyzxFKakbatzNe2RssRV-HoFD-i7WxWsU";
-// key = AIzaSyCyzxFKakbatzNe2RssRV-HoFD-i7WxWsU
-
-// WEATHER API "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/55.867%2C%20-4.265?unitGroup=us&key=E474BUSGJUK7XMXJUPEFVYCM9&contentType=json"
-// key = E474BUSGJUK7XMXJUPEFVYCM9
-
 let lat;
 let lng;
 let snowProb;
 let address;
+let googleAPIKey = "[insert API key here]";
+let weatherAPIKey = "[insert API key here]";
 
 const bckgImg = document.querySelector("background-image");
-
-snowPNG = "https://tenor.com/bagA7.gif"  
-// OR https://tenor.com/ES0z.gif
-
-noSnowPNG = "https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Grass-Grounds-Coverings-PNG-Clipart/Mountain_PNG_Clip_Art_Image.png?m=1530892071"
 
 
 function getInput() {
@@ -25,7 +16,7 @@ function getInput() {
 
 
 async function getLatLong() {
-   const resAdd = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCyzxFKakbatzNe2RssRV-HoFD-i7WxWsU`);
+   const resAdd = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${googleAPIKey}`);
    const place = (resAdd.data.results[0]);
    lat = place.geometry.location.lat;
    lng = place.geometry.location.lng;
@@ -34,7 +25,7 @@ async function getLatLong() {
 
 
 async function getWeather() {
-   const resWeath = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat}%2C%20${lng}?unitGroup=us&key=E474BUSGJUK7XMXJUPEFVYCM9&contentType=json`);
+   const resWeath = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat}%2C%20${lng}?unitGroup=us&key=${weatherAPIKey}&contentType=json`);
    console.log(resWeath.data.days[1])
    snowProb = (resWeath.data.days[1]).snow;
    console.log(snowProb);
